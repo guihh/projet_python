@@ -1,0 +1,24 @@
+ version: '2'
+ services:
+   db:
+    image: guihh/projet_db
+   web:
+     image: guihh/projet_web
+     command: bash -c "export PYTHONPATH=$PYTHONPATH:/geodjango;while ! nc -w 1 -z db 5432; do sleep 0.1; done; /geodjango/manage.py makemigrations; /geodjango/manage.py migrate;mod_wsgi-express start-server /geodjango/geodjango/wsgi.py --port 8000 --user www-data --group www-data;"
+     volumes:
+       - ./web/geodjango:/geodjango
+     ports:
+       - "8000:8000"
+     depends_on:
+       - db
+   web_geoalchemy:
+     image: guihh/projet_web_geoalchemy
+     command: bash -c "export PYTHONPATH=$PYTHONPATH:/web_geoalchemy;while ! nc -w 1 -z db 5432; do sleep 0.1; done;python3"
+     volumes:
+       - ./web_geoalchemy:/web_geoalchemy
+     ports:
+       - "8001:8001"
+     depends_on:
+       - db
+       - web
+     stdin_open: true
