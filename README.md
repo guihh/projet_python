@@ -28,6 +28,3 @@ Pour accéder à la classe qui contient les tests :
     load.test_{add()|delete()|update()|contains()|intersects()|perimeter()}
 
 Il existe 2 objets limitescommunes multipolygon, stockées dans la classe nogentSurSeine & champsSurMarne, et également 1 objet multipoint, nommé prefec, pour faire les tests avec les méthodes du dessus.
-# python_projet
-# projet_python
-# projet_python
